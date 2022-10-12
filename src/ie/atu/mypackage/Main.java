@@ -16,19 +16,28 @@ public class Main {
     	
     	Scanner userInput = new Scanner(System.in);
     	
-    	System.out.println("Please input an Integer: ");
-    	userInput.nextInt();
-        
-        // This statement prints "Hello World" to the console.
-        System.out.println("Hello World!");
+    	//System.out.println("Please input an Integer: ");
+    	//userInput.nextInt();
         
         // Create Student Object
         Student studentObject1 = new Student();
-        System.out.println(       studentObject1.toString()     );
+        studentObject1.printStudentDetails();
+        
+        Student studentObject2 = new Student("Tom", 21);
+        studentObject2.printStudentDetails();
         
         StudentManager studentManagerObject1 = new StudentManager();
-        System.out.println(studentManagerObject1.toString());
         
+        studentManagerObject1.showTotalStudents();
+
+        studentManagerObject1.addStudentToList(studentObject1);
+        studentManagerObject1.addStudentToList("Jim", 22);
+        
+        studentManagerObject1.showTotalStudents();
+        
+        studentManagerObject1.removeStudentFromList(studentObject1);
+        
+        studentManagerObject1.showTotalStudents();
         
         userInput.close();
         
