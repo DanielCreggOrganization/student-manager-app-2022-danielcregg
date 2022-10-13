@@ -3,6 +3,7 @@ package ie.atu.mypackage;
 public class Student {
 
 	// Instance Variables
+	private String studentId;
 	private String name;
 	private int age;
 	// Add studentId
@@ -12,15 +13,28 @@ public class Student {
 		name = "null";
 		age = 0;
 	}
+	
+	public Student(String studentId) {
+		this.studentId = studentId;
+	}
 
-	public Student(String name, int age) {
+	public Student(String studentId, String name, int age) {
+		this.studentId = studentId;
 		this.name = name;
 		this.age = age;
 	}
-
+	
 	// Getters and Setter
 	public String getName() {
 		return this.name;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 
 	public int getAge() {

@@ -16,19 +16,24 @@ public class Main {
         Student studentObject1 = new Student();
         studentObject1.printStudentDetails();
         
-        Student studentObject2 = new Student("Tom", 21);
+        Student studentObject2 = new Student("G00111111", "Tom", 21);
         studentObject2.printStudentDetails();
+        
+        Student studentObject3 = new Student("G00111111", "Tom", 21);
         
         StudentManager studentManagerObject1 = new StudentManager();
         
         studentManagerObject1.showTotalStudents();
 
         studentManagerObject1.addStudentToList(studentObject1);
-        studentManagerObject1.addStudentToList("Jim", 22);
+        studentManagerObject1.addStudentToList(studentObject2);
+        studentManagerObject1.addStudentToList(studentObject3);
+        studentManagerObject1.addStudentToList("G00222222", "John", 20);
         
         studentManagerObject1.showTotalStudents();
         
         studentManagerObject1.removeStudentFromList(studentObject1);
+        studentManagerObject1.removeStudentFromList("G00222222");
         
         studentManagerObject1.showTotalStudents();
         
