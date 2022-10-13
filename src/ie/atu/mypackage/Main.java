@@ -1,10 +1,3 @@
-/******************************************************************************
- *  Compilation:  javac Main.java
- *  Execution:    java Main
-*
- *  Prints "Hello World!" to console.
-*
- ******************************************************************************/
 package ie.atu.mypackage;
 
 import java.util.Scanner;

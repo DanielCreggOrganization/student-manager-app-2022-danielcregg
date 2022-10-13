@@ -5,6 +5,7 @@ public class Student {
 	// Instance Variables
 	private String name;
 	private int age;
+	// Add studentId
 
 	// Constructor
 	public Student() {

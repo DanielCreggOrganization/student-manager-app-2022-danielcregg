@@ -33,10 +33,12 @@ public class StudentManager {
 		return this.studentList.add(newStudent);
 	}
 	
-	// Delete Student from list
+	// Remove Student from list
 	public boolean removeStudentFromList(Student newStudent) {
 		return this.studentList.remove(newStudent);
 	}
+	
+	// Remove student from list given studendID
 	
 	// Update student name
 	
