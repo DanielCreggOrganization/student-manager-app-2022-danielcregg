@@ -28,10 +28,13 @@ public class Main {
         studentManagerObject1.addStudentToList(studentObject1);
         studentManagerObject1.addStudentToList(studentObject2);
         studentManagerObject1.addStudentToList(studentObject3);
-        studentManagerObject1.addStudentToList("G00222222", "John", 20);
+        studentManagerObject1.addStudentToList("G00123456", "John", 20);
+        studentManagerObject1.updateStudentName("G00123456", "William"); 
+        
+        //studentManagerObject1.printAllStudentDetails();
         
         studentManagerObject1.showTotalStudents();
-        
+        studentManagerObject1.findStudentByID("G0012346");
         studentManagerObject1.removeStudentFromList(studentObject1);
         studentManagerObject1.removeStudentFromList("G00222222");
         
