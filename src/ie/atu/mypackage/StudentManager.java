@@ -14,9 +14,9 @@ public class StudentManager {
 	}
 
 	// Create second constructor which takes arraylist as input
-//	public StudentManager(List<Student> studentList) {
-//		this.studentList = studentList;
-//	}
+	public StudentManager(List<Student> studentList) {
+		this.studentList = studentList;
+	}
 	
 	// Getter
 	public List<Student> getStudentList(){
@@ -30,47 +30,51 @@ public class StudentManager {
 	
 	// Add student to list
 	public boolean addStudentToList(Student newStudent) {
-		// Check student does not have an empty ID
+		if (studentIdFormatValidator(newStudent.getStudentId())) {
+			if (studentDuplicateDetector(newStudent.getStudentId())) {
+				return false;
+			} else {
+				return this.studentList.add(newStudent);
+			}
+		}
+		return false;
+	}
+	
+	// Check if student ID is valid
+	public boolean studentIdFormatValidator(String studentId) {
+		// Check if student ID is valid
+		if (studentId == null) {
+			System.out.println("Student NOT added! - Student ID can not be null");
+			return false;
+		} else if (!(studentId.matches("G00\\d{6}"))) {
+			System.out.println("Student NOT added! - Student ID must match the format G00123456");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean studentDuplicateDetector(String studentId) {
 		for (Student studentObject: studentList) {
-			// Check if student is already on list 
-			if (newStudent.getStudentId().equals(studentObject.getStudentId())){
+			if (studentId.equals(studentObject.getStudentId())){
 				System.out.println("Student already in List");
 				return false;
 			}
 		}
-		return this.studentList.add(newStudent);
+		return true;
 	}
 	
-	// Check if student ID is valid
-//	public boolean studentIdFormatValidator(String studentId) {
-//		// Check if student ID is valid
-//		if (studentId == null) {
-//			System.out.println("Student NOT added! - Student ID can not be null");
-//			return false;
-//		} else if (studentId.isBlank()) {
-//			System.out.println("Student NOT added! - Student ID can not be empty");
-//			return false;
-//		} else if (!(studentId.matches("G00\\d{6}"))) {
-//			System.out.println("Student NOT added! - Student ID must match the format G00123456");
-//			return false;
-//		} else {
-//			return true;
-//		}
-//	}
 	
 	public boolean addStudentToList(String studentId, String name, int age) {
 		Student newStudent = new Student(studentId, name, age);
 		// Check if a valid student ID was entered
-//		if (studentId == null) {
-//			System.out.println("Student NOT added! - Student ID can not be null");
-//			return false;
-//		} else if (studentId.isBlank()) {
-//			System.out.println("Student NOT added! - Student ID can not be empty");
-//			return false;
-//		} else if (!(studentId.matches("G00\\d{6}"))) {
-//			System.out.println("Student NOT added! - Student ID must match the format G00123456");
-//			return false;
-//		}
+		if (studentId == null) {
+			System.err.println("Student NOT added! - Student ID can not be null");
+			return false;
+		} else if (!(studentId.matches("G00\\d{6}"))) {
+			System.err.println("Student NOT added! - Student ID must match the format G00123456");
+			return false;
+		}
 
 		for (Student studentObject: studentList) {
 			if (studentId.equals(studentObject.getStudentId())){
