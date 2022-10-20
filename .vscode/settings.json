@@ -7,6 +7,7 @@
     "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
     "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.fontSize": 18,
     "java.server.launchMode" : "Standard",
     "java.debug.settings.console": "integratedTerminal",
     "files.exclude": {
