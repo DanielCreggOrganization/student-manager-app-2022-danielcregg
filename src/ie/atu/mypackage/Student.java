@@ -4,13 +4,12 @@ public class Student {
 
 	// Instance Variables
 	private String studentId;
-	private String name;
+	private String firstname;
 	private int age;
-	// Add studentId
 
-	// Constructor
+	// Constructors
 	public Student() {
-		name = "null";
+		firstname = "null";
 		age = 0;
 	}
 	
@@ -20,13 +19,13 @@ public class Student {
 
 	public Student(String studentId, String name, int age) {
 		this.studentId = studentId;
-		this.name = name;
+		this.firstname = name;
 		this.age = age;
 	}
 	
-	// Getters and Setter
+	// Getters and Setters
 	public String getName() {
-		return this.name;
+		return this.firstname;
 	}
 
 	public String getStudentId() {
@@ -42,7 +41,7 @@ public class Student {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.firstname = name;
 	}
 
 	public void setAge(int age) {
@@ -51,7 +50,7 @@ public class Student {
 
 	// Method to print students name and age
 	public void printStudentDetails() {
-		System.out.println("ID: " + this.studentId + ", Name: " + this.name + ", Age: " + this.age);
+		System.out.println("ID: " + this.studentId + ", Name: " + this.firstname + ", Age: " + this.age);
 	}
 
 } // End class
