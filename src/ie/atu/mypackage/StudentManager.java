@@ -32,10 +32,10 @@ public class StudentManager {
 	public boolean studentIdFormatValidator(String studentId) {
 		// Check if student ID is valid
 		if (studentId == null) {
-			System.out.println("Student NOT added! - Student ID can not be null");
+			System.err.println("Student NOT added! - Student ID can not be null");
 			return false;
 		} else if (!(studentId.matches("G00\\d{6}"))) {
-			System.out.println("Student NOT added! - Student ID must match the format G00123456");
+			System.err.println("Student NOT added! - Student ID must match the format G00123456");
 			return false;
 		} else {
 			return true;
@@ -63,7 +63,7 @@ public class StudentManager {
 		if (studentIdFormatValidator(studentId)) {
 			for (Student studentObject : studentList) {
 				if (studentId.equals(studentObject.getStudentId())) {
-					System.out.println("Student ID " + studentId + " already on List");
+					System.err.println("Student ID " + studentId + " already on List");
 					return true;
 				}
 			}
@@ -134,12 +134,12 @@ public class StudentManager {
 
 	// Update student name
 	public boolean updateStudentName(String studentId, String newName) {
-			Student studentObject = findStudentByID(studentId);
-			if (studentObject != null) {
-				studentObject.setName(newName);
-				System.out.println("Student name updated!");
-				return true;
-			}
+		Student studentObject = findStudentByID(studentId);
+		if (studentObject != null) {
+			studentObject.setName(newName);
+			System.out.println("Student name updated!");
+			return true;
+		}
 		System.err.println("Student name NOT updated!");
 		return false;
 	}
@@ -154,15 +154,15 @@ public class StudentManager {
 		return this.studentList.size();
 	}
 
-	// // Print all student details in table
-	// public void printAllStudentDetails() {
-	// System.out.println("ID\tNAME\tAGE");
-	// System.out.println("=====================");
-	// for(Student studentObject : studentList) {
-	// System.out.println(studentObject.getStudentId() + "\t, " +
-	// studentObject.getName() + "\t, " + studentObject.getAge());
-	// }
-	// System.out.println("=====================");
-	// }
+	// Print all student details in table
+	public void printAllStudentDetails() {
+		System.out.println("ID\tNAME\tAGE");
+		System.out.println("=====================");
+		for (Student studentObject : studentList) {
+			System.out.println(studentObject.getStudentId() + "\t, " +
+					studentObject.getName() + "\t, " + studentObject.getAge());
+		}
+		System.out.println("=====================");
+	}
 
 }// End class
