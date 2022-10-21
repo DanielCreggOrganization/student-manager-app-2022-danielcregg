@@ -15,7 +15,6 @@ public class Main {
         // Create Student Object
         Student studentObject1 = new Student();
         studentObject1.printStudentDetails();
-        
         Student studentObject2 = new Student("G00111111", "Tom", 21);
         studentObject2.printStudentDetails();
         
