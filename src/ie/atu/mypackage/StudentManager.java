@@ -42,8 +42,12 @@ public class StudentManager {
 		}
 	}
 
-	/* Returns true if duplicate is detected and false if not. */
+	// Returns true if duplicate is detected and false if not
 	public boolean studentDuplicateDetector(Student student) {
+		if (student == null) {
+			System.err.println("Input can not be null!");
+			return false;
+		}
 		// Check if a valid student ID was entered
 		if (studentIdFormatValidator(student.getStudentId())) {
 			for (Student studentObject : studentList) {

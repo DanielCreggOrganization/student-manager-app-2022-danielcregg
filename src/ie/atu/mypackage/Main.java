@@ -21,7 +21,7 @@ public class Main {
         studentManagerObject1.showTotalStudents();
         studentManagerObject1.printAllStudentDetails();
 
-        //userInput.close();
+        userInput.close();
 
     } // End main method
 } // End Main class
