@@ -49,8 +49,8 @@ public class Student {
 	}
 
 	// Method to print students name and age
-	public void printStudentDetails() {
-		System.out.println("ID: " + this.studentId + ", Name: " + this.firstname + ", Age: " + this.age);
+	public String toString() {
+		return this.studentId + "," + this.firstname + "," + this.age;
 	}
 
 } // End class
