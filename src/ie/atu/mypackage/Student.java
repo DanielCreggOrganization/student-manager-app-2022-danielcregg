@@ -24,20 +24,20 @@ public class Student {
 	}
 	
 	// Getters and Setters
+	public String getStudentId() {
+		return studentId;
+	}
+	
 	public String getName() {
 		return this.firstname;
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public int getAge() {
+		return this.age;
 	}
 
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
-	}
-
-	public int getAge() {
-		return this.age;
 	}
 
 	public void setName(String name) {
