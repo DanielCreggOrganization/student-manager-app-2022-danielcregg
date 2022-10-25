@@ -168,11 +168,12 @@ public class StudentManager {
 	// Print all student details in table
 	public void printAllStudentDetails() {
 		System.out.println("ID, NAME, AGE");
-		System.out.println("=====================");
+		System.out.println("===========================");
 		for (Student studentObject : studentList) {
 			System.out.println(studentObject.getStudentId() + ", " +
 					studentObject.getFirstname() + ", " + studentObject.getAge());
 		}
+		System.out.println("===========================");
 	}
 
 	// Read student details from file
