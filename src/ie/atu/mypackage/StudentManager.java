@@ -167,9 +167,6 @@ public class StudentManager {
 
 	// Print all student details in table
 	public void printAllStudentDetails() {
-		System.out.println("ID,NAME,AGE");
-		for (Student studentObject : studentList) {
-			System.out.println(studentObject.toString());
 		System.out.println("ID, NAME, AGE");
 		System.out.println("=====================");
 		for (Student studentObject : studentList) {
