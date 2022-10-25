@@ -28,7 +28,7 @@ public class Student {
 		return studentId;
 	}
 	
-	public String getName() {
+	public String getFirstname() {
 		return this.firstname;
 	}
 
@@ -40,7 +40,7 @@ public class Student {
 		this.studentId = studentId;
 	}
 
-	public void setName(String name) {
+	public void setFirstName(String name) {
 		this.firstname = name;
 	}
 

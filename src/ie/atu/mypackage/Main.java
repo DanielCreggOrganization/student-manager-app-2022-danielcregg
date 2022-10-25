@@ -20,6 +20,19 @@ public class Main {
         studentManagerObject1.addStudentToList("G00333333", "Pat", 22);
         studentManagerObject1.showTotalStudents();
         studentManagerObject1.printAllStudentDetails();
+<<<<<<< HEAD
+=======
+        studentManagerObject1.removeStudentFromList(studentObject2);
+        studentManagerObject1.removeStudentFromList("G00222222");
+
+
+        studentManagerObject1.loadStudentsFromCSVFile("./resources/students.csv");
+        studentManagerObject1.showTotalStudents();
+        studentManagerObject1.printAllStudentDetails();
+        studentManagerObject1.addStudentToList("G00333333", "Jill", 24);
+        studentManagerObject1.printAllStudentDetails();
+        studentManagerObject1.saveStudentsToCSVFile("./resources/students.csv");
+>>>>>>> 1b5150c (updates io)
 
         userInput.close();
 
