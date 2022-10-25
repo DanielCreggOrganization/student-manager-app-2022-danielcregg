@@ -42,7 +42,7 @@ public class StudentManager {
 			System.err.println("Student NOT added! - Student ID can not be null");
 			return false;
 		} else if (!(studentId.matches("G00\\d{6}"))) {
-			System.err.println("Student NOT added! - Student ID must match the format G00123456");
+			System.err.println("Student NOT added! - Student ID " + studentId + " does not match the format G00123456");
 			return false;
 		} else {
 			return true;
@@ -52,14 +52,14 @@ public class StudentManager {
 	// Returns true if duplicate is detected and false if not
 	public boolean studentDuplicateDetector(Student student) {
 		if (student == null) {
-			System.err.println("Input can not be null!");
+			System.err.println("Student Duplicate Detector: Input can not be null!");
 			return false;
 		}
 		// Check if a valid student ID was entered
 		if (studentIdFormatValidator(student.getStudentId())) {
 			for (Student studentObject : studentList) {
 				if (student.getStudentId().equals(studentObject.getStudentId())) {
-					System.out.println("Student ID " + student.getStudentId() + " already on List");
+					System.out.println("Student ID " + student.getStudentId() + " is already on the List");
 					return true;
 				}
 			}
@@ -175,6 +175,7 @@ public class StudentManager {
 		}
 	}
 
+	// Read studnet details from file
 	public void loadStudentsFromCSVFile(String pathToStudentCSVFile) {
 		File studentCSVFile = null;
 		FileReader studentCSVFileReader = null;
@@ -199,7 +200,7 @@ public class StudentManager {
 				this.addStudentToList(newStudent); // Add student to the studentList
 			}
 			System.out.println("Loaded Students List from CSV file successfully!");
-		} catch (NullPointerException npExc){
+		} catch (NullPointerException npExc) {
 			System.err.println("ERROR: Students NOT saved to file!");
 			npExc.printStackTrace();
 		} catch (FileNotFoundException fnfExc) {
@@ -222,6 +223,7 @@ public class StudentManager {
 		} // End finally
 	} // End load method
 
+	// Write student details to file
 	public void saveStudentsToCSVFile(String pathToStudentCSVFile) {
 		File studentCSVFile = null;
 		FileWriter studentFileWriterStream = null;
@@ -235,13 +237,13 @@ public class StudentManager {
 			// Write out student data from studentList to buffer and flush it to CSV file
 			for (Student studentObject : studentList) {
 				bufferedstudentFileWriterStream.write(studentObject.getStudentId() + "," + studentObject.getFirstname()
-						 + "," + studentObject.getAge() + "\n");
+						+ "," + studentObject.getAge() + "\n");
 				// bufferedstudentFileWriterStream.write(studentObject.findAllFieldValuesInCSVFormat()
 				// + "\n");
 				bufferedstudentFileWriterStream.flush(); // Flushes buffer which transfers buffer data to the file
 			}
 			System.out.println("Students saved to CSV file located at " + pathToStudentCSVFile);
-		} catch (NullPointerException npExc){
+		} catch (NullPointerException npExc) {
 			System.err.println("ERROR: Students NOT saved to file!");
 			npExc.printStackTrace();
 		} catch (FileNotFoundException fnfExc) {
