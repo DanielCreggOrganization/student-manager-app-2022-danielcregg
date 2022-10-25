@@ -175,8 +175,8 @@ public class StudentManager {
 		}
 	}
 
-	// Read studnet details from file
-	public void loadStudentsFromCSVFile(String pathToStudentCSVFile) {
+	// Read student details from file
+	public void readStudentDataFromCSVFile(String pathToStudentCSVFile) {
 		File studentCSVFile = null;
 		FileReader studentCSVFileReader = null;
 		BufferedReader bufferedStudentCSVFileReader = null;
@@ -199,7 +199,7 @@ public class StudentManager {
 						Integer.parseInt(studentFieldValues[2]));
 				this.addStudentToList(newStudent); // Add student to the studentList
 			}
-			System.out.println("Loaded Students List from CSV file successfully!");
+			System.out.println("Student data read from CSV file located at " + pathToStudentCSVFile);
 		} catch (NullPointerException npExc) {
 			System.err.println("ERROR: Students NOT saved to file!");
 			npExc.printStackTrace();
@@ -223,7 +223,7 @@ public class StudentManager {
 	} // End load method
 
 	// Write student details to file
-	public void saveStudentsToCSVFile(String pathToStudentCSVFile) {
+	public void writeStudentDataToCSVFile(String pathToStudentCSVFile) {
 		File studentCSVFile = null;
 		FileWriter studentFileWriterStream = null;
 		BufferedWriter bufferedstudentFileWriterStream = null;
@@ -241,7 +241,7 @@ public class StudentManager {
 				// + "\n");
 				bufferedstudentFileWriterStream.flush(); // Flushes buffer which transfers buffer data to the file
 			}
-			System.out.println("Students saved to CSV file located at " + pathToStudentCSVFile);
+			System.out.println("Student data written to CSV file located at " + pathToStudentCSVFile);
 		} catch (NullPointerException npExc) {
 			System.err.println("ERROR: Students NOT saved to file!");
 			npExc.printStackTrace();

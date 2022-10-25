@@ -23,13 +23,13 @@ public class Main {
         // studentManagerObject1.removeStudentFromList("G00222222");
 
 
-        studentManagerObject1.loadStudentsFromCSVFile("./resources/students.csv");
+        studentManagerObject1.readStudentDataFromCSVFile("./resources/students.csv");
         studentManagerObject1.addStudentToList("G00666666", "Sarah", 29);
         studentManagerObject1.showTotalStudents();
         // studentManagerObject1.printAllStudentDetails();
         // studentManagerObject1.addStudentToList("G00333333", "Jill", 24);
         studentManagerObject1.printAllStudentDetails();
-        studentManagerObject1.saveStudentsToCSVFile("./resources/students.csv");
+        studentManagerObject1.writeStudentDataToCSVFile("./resources/students.csv");
 
         // userInput.close();
 
