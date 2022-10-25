@@ -216,7 +216,7 @@ public class StudentManager {
 				// Close the file reader stream
 				studentCSVFileReader.close();
 			} catch (IOException IOExc) {
-				System.err.println("ERROR: Could not close the buffer or the file!");
+				System.err.println("ERROR: Could not close the buffer file reader!");
 				IOExc.printStackTrace();
 			} // End catch
 		} // End finally
@@ -258,6 +258,7 @@ public class StudentManager {
 				// Close file writer
 				studentFileWriterStream.close();
 			} catch (IOException IOExc) {
+				System.err.println("ERROR: Could not close the buffer or file writer!");
 				IOExc.printStackTrace();
 			} // End catch
 		} // End finally
