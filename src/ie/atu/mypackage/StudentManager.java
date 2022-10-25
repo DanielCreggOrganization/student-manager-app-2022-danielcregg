@@ -211,13 +211,12 @@ public class StudentManager {
 			IOExc.printStackTrace();
 		} finally {
 			try {
-				if (studentCSVFileReader != null) {
-					// Flushes buffer, which transfers buffer data to the file, then closes buffer.
-					bufferedStudentCSVFileReader.close();
-					// Close the file reader stream
-					studentCSVFileReader.close();
-				}
+				// Flushes buffer, which transfers buffer data to the file, then closes buffer.
+				bufferedStudentCSVFileReader.close();
+				// Close the file reader stream
+				studentCSVFileReader.close();
 			} catch (IOException IOExc) {
+				System.err.println("ERROR: Could not close the buffer or the file!");
 				IOExc.printStackTrace();
 			} // End catch
 		} // End finally
@@ -232,7 +231,7 @@ public class StudentManager {
 			studentCSVFile = new File(pathToStudentCSVFile);
 			studentFileWriterStream = new FileWriter(studentCSVFile);
 			bufferedstudentFileWriterStream = new BufferedWriter(studentFileWriterStream);
-			bufferedstudentFileWriterStream.write("ID,Firstname,Age" + "\n");
+			bufferedstudentFileWriterStream.write("ID, Firstname, Age" + "\n");
 
 			// Write out student data from studentList to buffer and flush it to CSV file
 			for (Student studentObject : studentList) {
@@ -254,12 +253,10 @@ public class StudentManager {
 			IOExc.printStackTrace();
 		} finally {
 			try {
-				if (studentFileWriterStream != null) {
-					// Close buffer
-					bufferedstudentFileWriterStream.close();
-					// Close file writer
-					studentFileWriterStream.close();
-				}
+				// Close buffer
+				bufferedstudentFileWriterStream.close();
+				// Close file writer
+				studentFileWriterStream.close();
 			} catch (IOException IOExc) {
 				IOExc.printStackTrace();
 			} // End catch
