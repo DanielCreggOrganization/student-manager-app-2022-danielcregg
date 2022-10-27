@@ -100,18 +100,6 @@ public class StudentManager {
 	}
 
 	// Add student to list
-	public boolean addStudentToList(Student newStudent) {
-		if (studentIdFormatValidator(newStudent.getStudentId())) {
-			if (studentDuplicateDetector(newStudent.getStudentId())) {
-				return false;
-			} else {
-				// ID format good and no duplicate found. Adding student to the list
-				return this.studentList.add(newStudent);
-			}
-		}
-		return false; // If studentIdFormatValidator detects mis formatted id
-	}
-
 	public boolean addStudentToList(String studentId, String name, int age) {
 		// Check if a valid student ID was entered
 		if (Student.isValid(studentId, name, age)) {
@@ -123,7 +111,7 @@ public class StudentManager {
 				return this.studentList.add(newStudent);
 			}
 		}
-		return false; // If studentIdFormatValidator detects mis formatted id
+		return false; // If studentIdFormatValidator detects incorrectly formatted id
 	}
 
 	// Remove Student from list
@@ -196,9 +184,10 @@ public class StudentManager {
 				// System.out.println(bufferData);
 				String[] studentFieldValues = bufferData.split(",");
 				// System.out.println(Arrays.toString(studentFieldValues));
-				Student newStudent = new Student(studentFieldValues[0], studentFieldValues[1],
-						Integer.parseInt(studentFieldValues[2]));
-				this.addStudentToList(newStudent); // Add student to the studentList
+				String studentId = studentFieldValues[0];
+				String firstName = studentFieldValues[1];
+				int age = Integer.parseInt(studentFieldValues[2]);
+				this.addStudentToList(studentId, firstName, age); // Add student to the studentList
 			}
 			System.out.println("Student data read from CSV file located at " + pathToStudentCSVFile);
 		} catch (NullPointerException npExc) {
