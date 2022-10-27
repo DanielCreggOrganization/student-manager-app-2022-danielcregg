@@ -113,9 +113,9 @@ public class StudentManager {
 	}
 
 	public boolean addStudentToList(String studentId, String name, int age) {
-		Student newStudent = new Student(studentId, name, age);
 		// Check if a valid student ID was entered
-		if (studentIdFormatValidator(newStudent.getStudentId())) {
+		if (Student.isValid(studentId, name, age)) {
+			Student newStudent = new Student(studentId, name, age);
 			if (studentDuplicateDetector(newStudent.getStudentId())) {
 				return false;
 			} else {
@@ -171,7 +171,7 @@ public class StudentManager {
 		System.out.println("===========================");
 		for (Student studentObject : studentList) {
 			System.out.println(studentObject.getStudentId() + ", " +
-					studentObject.getFirstname() + ", " + studentObject.getAge());
+					studentObject.getFirstName() + ", " + studentObject.getAge());
 		}
 		System.out.println("===========================");
 	}
@@ -236,7 +236,7 @@ public class StudentManager {
 
 			// Write out student data from studentList to buffer and flush it to CSV file
 			for (Student studentObject : studentList) {
-				bufferedstudentFileWriterStream.write(studentObject.getStudentId() + "," + studentObject.getFirstname()
+				bufferedstudentFileWriterStream.write(studentObject.getStudentId() + "," + studentObject.getFirstName()
 						+ "," + studentObject.getAge() + "\n");
 				// bufferedstudentFileWriterStream.write(studentObject.findAllFieldValuesInCSVFormat()
 				// + "\n");
