@@ -39,7 +39,8 @@ public class StudentManager {
 	public Student findStudentObjectByID(String studentId) {
 		// Check if a valid student ID was passed
 		if (Student.studentIdIsValid(studentId)) {
-			// Search all student objects in the student list and compare student ID to the one passed
+			// Search all student objects in the student list and compare student ID to the
+			// one passed
 			for (Student studentObject : studentList) {
 				// If a match is found return the student object
 				if (studentId.equals(studentObject.getStudentId())) {
@@ -61,12 +62,12 @@ public class StudentManager {
 
 	// Add student to list
 	public boolean addStudentToList(String studentId, String name, int age) {
-		// Check if a valid student details are vaild and if student is NOT already on list
+		// Check student details are vaild and if student is NOT already on list
 		if (Student.isValid(studentId, name, age) && !isOnList(studentId)) {
-			// ID format good and not on list already; add student to the list
+			// Create student object with valid details and add student to the list
 			Student newStudent = new Student(studentId, name, age);
 			return this.studentList.add(newStudent);
-		}
+		} 
 		// If student details are invalid or if student is already on list return false
 		return false;
 	}
@@ -78,8 +79,9 @@ public class StudentManager {
 
 	// Update student name
 	public void updateStudentName(String studentId, String newName) {
+		System.out.println("Student with ID: " + studentId + " updated name from " + findStudentObjectByID(studentId).getFirstName() + " to " + newName);
 		findStudentObjectByID(studentId).setFirstName(newName);
-		System.out.println("Student with ID: " + studentId + " updated name to " + newName);
+		System.out.println(" to " + newName);
 	}
 
 	// Show total number of Students in List
@@ -89,7 +91,7 @@ public class StudentManager {
 
 	// Print student list to console
 	public void printStudentList() {
-		System.out.println("ID, NAME, AGE");
+		System.out.println("ID,NAME,AGE");
 		System.out.println("===========================");
 		for (Student studentObject : studentList) {
 			System.out.println(studentObject.toString());
@@ -143,7 +145,7 @@ public class StudentManager {
 				IOExc.printStackTrace();
 			} // End catch
 		} // End finally
-	} // End load method
+	} // End read method
 
 	// Write student details to file
 	public void writeStudentDataToCSVFile(String pathToStudentCSVFile) {
@@ -151,18 +153,19 @@ public class StudentManager {
 		FileWriter studentFileWriterStream = null;
 		BufferedWriter bufferedstudentFileWriterStream = null;
 		try {
+			// Create a buffered file writer which can write one line at a time
 			studentCSVFile = new File(pathToStudentCSVFile);
 			studentFileWriterStream = new FileWriter(studentCSVFile);
 			bufferedstudentFileWriterStream = new BufferedWriter(studentFileWriterStream);
-			bufferedstudentFileWriterStream.write("ID, Firstname, Age" + "\n");
+
+			// Write column headers to CSV file
+			bufferedstudentFileWriterStream.write("ID,Firstname,Age" + "\n");
 
 			// Write out student data from studentList to buffer and flush it to CSV file
 			for (Student studentObject : studentList) {
 				bufferedstudentFileWriterStream.write(studentObject.getStudentId() + "," + studentObject.getFirstName()
 						+ "," + studentObject.getAge() + "\n");
-				// bufferedstudentFileWriterStream.write(studentObject.findAllFieldValuesInCSVFormat()
-				// + "\n");
-				bufferedstudentFileWriterStream.flush(); // Flushes buffer which transfers buffer data to the file
+				bufferedstudentFileWriterStream.flush(); // Flush buffer and transfer buffer data to the file
 			}
 			System.out.println("Student data written to CSV file located at " + pathToStudentCSVFile);
 		} catch (NullPointerException npExc) {
@@ -186,5 +189,4 @@ public class StudentManager {
 			} // End catch
 		} // End finally
 	} // End Save method
-
 }// End class
