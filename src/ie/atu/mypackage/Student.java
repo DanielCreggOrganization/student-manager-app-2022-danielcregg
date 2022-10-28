@@ -70,10 +70,10 @@ public class Student {
 	public static boolean studentIdIsValid(String studentId) {
 		// Check if student ID is valid
 		if (studentId == null) {
-			System.err.println("Student NOT added! - Student ID can not be null");
+			System.err.println("Student ID can not be null");
 			return false;
 		} else if (!(studentId.matches("G00\\d{6}"))) {
-			System.err.println("Student NOT added! - Student ID " + studentId + " does not match the format G00123456");
+			System.err.println("Student ID " + studentId + " does not match the format G00123456");
 			return false;
 		} else {
 			return true;

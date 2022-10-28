@@ -12,7 +12,6 @@ public class Main {
         studentManagerObject1.printTotalNumberOfStudents();;
         studentManagerObject1.printStudentList();
         studentManagerObject1.writeStudentDataToCSVFile("./resources/students.csv");
-        studentManagerObject1.getStudentList().contains(studentManagerObject1.findStudentByID("G00666666"));
 
         // userInput.close();
 

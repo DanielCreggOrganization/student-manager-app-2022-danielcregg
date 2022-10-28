@@ -35,17 +35,11 @@ public class StudentManager {
 		this.studentList = studentList;
 	}
 
-	/* Returns true if duplicate is detected and false if not. */
-	public boolean isOnList(String studentId) {
-		// Check if a valid student ID was entered
-		return studentList.contains(findStudentByID(studentId));
-	}
-
 	// Find student by ID
-	public Student findStudentByID(String studentId) {
+	public Student findStudentObjectByID(String studentId) {
 		// Check if a valid student ID was passed
 		if (Student.studentIdIsValid(studentId)) {
-			// Search all students in the list and compare student ID to valid one passed
+			// Search all student objects in the student list and compare student ID to the one passed
 			for (Student studentObject : studentList) {
 				// If a match is found return the student object
 				if (studentId.equals(studentObject.getStudentId())) {
@@ -59,26 +53,32 @@ public class StudentManager {
 		return null;
 	}
 
+	// Returns true if student on list
+	public boolean isOnList(String studentId) {
+		// Check if a valid student ID was entered
+		return studentList.contains(findStudentObjectByID(studentId));
+	}
+
 	// Add student to list
 	public boolean addStudentToList(String studentId, String name, int age) {
-		// Check if a valid student ID was entered
+		// Check if a valid student details are vaild and if student is NOT already on list
 		if (Student.isValid(studentId, name, age) && !isOnList(studentId)) {
-			// ID format good and no duplicate found. Adding student to the list
+			// ID format good and not on list already; add student to the list
 			Student newStudent = new Student(studentId, name, age);
 			return this.studentList.add(newStudent);
 		}
-		return false; // If studentIdFormatValidator detects incorrectly formatted id
+		// If student details are invalid or if student is already on list return false
+		return false;
 	}
 
 	// Remove student from list given studendID
 	public boolean removeStudentFromList(String studentId) {
-		return studentList.remove(findStudentByID(studentId));
+		return studentList.remove(findStudentObjectByID(studentId));
 	}
 
 	// Update student name
 	public void updateStudentName(String studentId, String newName) {
-		Student studentObject = findStudentByID(studentId);
-		studentObject.setFirstName(newName);
+		findStudentObjectByID(studentId).setFirstName(newName);
 		System.out.println("Student with ID: " + studentId + " updated name to " + newName);
 	}
 
@@ -87,18 +87,12 @@ public class StudentManager {
 		System.out.println(this.studentList.size());
 	}
 
-	// Show total number of Students in List
-	public int totalNumberOfStudents() {
-		return this.studentList.size();
-	}
-
-	// Print all student details in table
+	// Print student list to console
 	public void printStudentList() {
 		System.out.println("ID, NAME, AGE");
 		System.out.println("===========================");
 		for (Student studentObject : studentList) {
-			System.out.println(studentObject.getStudentId() + ", " +
-					studentObject.getFirstName() + ", " + studentObject.getAge());
+			System.out.println(studentObject.toString());
 		}
 		System.out.println("===========================");
 	}
