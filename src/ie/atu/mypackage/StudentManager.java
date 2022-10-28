@@ -35,65 +35,25 @@ public class StudentManager {
 		this.studentList = studentList;
 	}
 
-	// Check if student ID is valid
-	public boolean studentIdFormatValidator(String studentId) {
-		// Check if student ID is valid
-		if (studentId == null) {
-			System.err.println("Student NOT added! - Student ID can not be null");
-			return false;
-		} else if (!(studentId.matches("G00\\d{6}"))) {
-			System.err.println("Student NOT added! - Student ID " + studentId + " does not match the format G00123456");
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	// Returns true if duplicate is detected and false if not
-	public boolean studentDuplicateDetector(Student student) {
-		if (student == null) {
-			System.err.println("Student Duplicate Detector: Input can not be null!");
-			return false;
-		}
-		// Check if a valid student ID was entered
-		if (studentIdFormatValidator(student.getStudentId())) {
-			for (Student studentObject : studentList) {
-				if (student.getStudentId().equals(studentObject.getStudentId())) {
-					System.out.println("Student ID " + student.getStudentId() + " is already on the List");
-					return true;
-				}
-			}
-			return false;
-		}
-		return false;
-	}
-
 	/* Returns true if duplicate is detected and false if not. */
-	public boolean studentDuplicateDetector(String studentId) {
+	public boolean isOnList(String studentId) {
 		// Check if a valid student ID was entered
-		if (studentIdFormatValidator(studentId)) {
-			for (Student studentObject : studentList) {
-				if (studentId.equals(studentObject.getStudentId())) {
-					System.err.println("Student ID " + studentId + " already on List");
-					return true;
-				}
-			}
-			return false;
-		}
-		return false;
+		return studentList.contains(findStudentByID(studentId));
 	}
 
 	// Find student by ID
 	public Student findStudentByID(String studentId) {
-		// Check if a valid student ID was entered
-		if (studentIdFormatValidator(studentId)) {
+		// Check if a valid student ID was passed
+		if (Student.studentIdIsValid(studentId)) {
+			// Search all students in the list and compare student ID to valid one passed
 			for (Student studentObject : studentList) {
+				// If a match is found return the student object
 				if (studentId.equals(studentObject.getStudentId())) {
-					System.out.println("Student with ID " + studentId + " was found!");
+					System.out.println("Student with ID " + studentId + " was on list!");
 					return studentObject;
 				} // End if
 			} // End for
-			System.err.println("Student with ID " + studentId + " was NOT found!");
+			System.err.println("Student with ID " + studentId + " is not on the list!");
 			return null;
 		}
 		return null;
@@ -102,59 +62,38 @@ public class StudentManager {
 	// Add student to list
 	public boolean addStudentToList(String studentId, String name, int age) {
 		// Check if a valid student ID was entered
-		if (Student.isValid(studentId, name, age)) {
+		if (Student.isValid(studentId, name, age) && !isOnList(studentId)) {
+			// ID format good and no duplicate found. Adding student to the list
 			Student newStudent = new Student(studentId, name, age);
-			if (studentDuplicateDetector(newStudent.getStudentId())) {
-				return false;
-			} else {
-				// ID format good and no duplicate found. Adding student to the list
-				return this.studentList.add(newStudent);
-			}
+			return this.studentList.add(newStudent);
 		}
 		return false; // If studentIdFormatValidator detects incorrectly formatted id
 	}
 
-	// Remove Student from list
-	public boolean removeStudentFromList(Student newStudent) {
-		return this.studentList.remove(newStudent);
-	}
-
 	// Remove student from list given studendID
 	public boolean removeStudentFromList(String studentId) {
-		if (studentIdFormatValidator(studentId)) {
-			for (Student studentObject : studentList) {
-				if (studentId.equals(studentObject.getStudentId())) {
-					return studentList.remove(studentObject);
-				} // End if
-			} // End for
-		}
-		return false;
+		return studentList.remove(findStudentByID(studentId));
 	}
 
 	// Update student name
-	public boolean updateStudentName(String studentId, String newName) {
+	public void updateStudentName(String studentId, String newName) {
 		Student studentObject = findStudentByID(studentId);
-		if (studentObject != null) {
-			studentObject.setFirstName(newName);
-			System.out.println("Student name updated!");
-			return true;
-		}
-		System.err.println("Student name NOT updated!");
-		return false;
+		studentObject.setFirstName(newName);
+		System.out.println("Student with ID: " + studentId + " updated name to " + newName);
 	}
 
 	// Show total number of Students in List
-	public void showTotalStudents() {
+	public void printTotalNumberOfStudents() {
 		System.out.println(this.studentList.size());
 	}
 
 	// Show total number of Students in List
-	public int totalStudents() {
+	public int totalNumberOfStudents() {
 		return this.studentList.size();
 	}
 
 	// Print all student details in table
-	public void printAllStudentDetails() {
+	public void printStudentList() {
 		System.out.println("ID, NAME, AGE");
 		System.out.println("===========================");
 		for (Student studentObject : studentList) {

@@ -13,12 +13,12 @@ public class Student {
 		this.firstName = name;
 		this.age = age;
 	}
-	
+
 	// Getters and Setters
 	public String getStudentId() {
 		return studentId;
 	}
-	
+
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -47,7 +47,7 @@ public class Student {
 		} else if (!(studentId.matches("G00\\d{6}"))) {
 			System.err.println("Student ID " + studentId + " does not match the format G00123456");
 			return false;
-		// Check if student first name is valid
+			// Check if student first name is valid
 		} else if (firstName == null) {
 			System.err.println("First name can not be null");
 			return false;
@@ -57,13 +57,26 @@ public class Student {
 		} else if (!firstName.matches("[a-zA-Z]+")) {
 			System.err.println("First name must conatin Upper and lover case letters only");
 			return false;
-		// Check if student age is valid
+			// Check if student age is valid
 		} else if (age < 16 || age > 130) {
 			System.err.println("Student must be at least 16 years old");
 			return false;
 		} else {
 			return true;
+		}
+	}
 
+	// Check if student ID is valid
+	public static boolean studentIdIsValid(String studentId) {
+		// Check if student ID is valid
+		if (studentId == null) {
+			System.err.println("Student NOT added! - Student ID can not be null");
+			return false;
+		} else if (!(studentId.matches("G00\\d{6}"))) {
+			System.err.println("Student NOT added! - Student ID " + studentId + " does not match the format G00123456");
+			return false;
+		} else {
+			return true;
 		}
 	}
 
