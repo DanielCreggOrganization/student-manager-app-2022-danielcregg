@@ -37,27 +37,26 @@ public class StudentManager {
 
 	// Find student by ID
 	public Student findStudentObjectByID(String studentId) {
-		// Check if a valid student ID was passed
-		if (Student.studentIdIsValid(studentId)) {
-			// Search all student objects in the student list and compare student ID to the
-			// one passed
-			for (Student studentObject : studentList) {
+		// Search all student objects in the student list
+		for (Student studentObject : studentList) {
+			// Compare IDs to ID passed in
+			if (studentId.equals(studentObject.getStudentId())) {
 				// If a match is found return the student object
-				if (studentId.equals(studentObject.getStudentId())) {
-					System.out.println("Student with ID " + studentId + " was on list!");
-					return studentObject;
-				} // End if
-			} // End for
-			System.err.println("Student with ID " + studentId + " is not on the list!");
-			return null;
+				System.out.println("Student with ID " + studentId + " was on list!");
+				return studentObject;
+			}
 		}
+		System.err.println("Student with ID " + studentId + " is not on the list!");
 		return null;
 	}
 
 	// Returns true if student on list
 	public boolean isOnList(String studentId) {
-		// Check if a valid student ID was entered
-		return studentList.contains(findStudentObjectByID(studentId));
+		if (Student.studentIdIsValid(studentId)) {
+			// Check if a valid student ID was entered
+			return studentList.contains(findStudentObjectByID(studentId));
+		}
+		return false;
 	}
 
 	// Add student to list
@@ -67,21 +66,32 @@ public class StudentManager {
 			// Create student object with valid details and add student to the list
 			Student newStudent = new Student(studentId, name, age);
 			return this.studentList.add(newStudent);
-		} 
+		}
 		// If student details are invalid or if student is already on list return false
 		return false;
 	}
 
 	// Remove student from list given studendID
 	public boolean removeStudentFromList(String studentId) {
-		return studentList.remove(findStudentObjectByID(studentId));
+		if (Student.studentIdIsValid(studentId)) {
+			return studentList.remove(findStudentObjectByID(studentId));
+		} else {
+			return false;
+		}
 	}
 
 	// Update student name
 	public void updateStudentName(String studentId, String newName) {
-		System.out.println("Student with ID: " + studentId + " updated name from " + findStudentObjectByID(studentId).getFirstName() + " to " + newName);
-		findStudentObjectByID(studentId).setFirstName(newName);
-		System.out.println(" to " + newName);
+		if (Student.studentIdIsValid(studentId) && Student.firstNameIsValid(newName)) {
+			// Find student object by ID
+			Student studentToUpdate = findStudentObjectByID(studentId);
+			// Update student name
+			if (studentToUpdate != null) {
+				String oldName = studentToUpdate.getFirstName();
+				studentToUpdate.setFirstName(newName);
+				System.out.println("Student with ID: " + studentId + " updated name from " + oldName + " to " + newName);
+			}
+		}
 	}
 
 	// Show total number of Students in List
