@@ -35,28 +35,69 @@ public class StudentManager {
 		this.studentList = studentList;
 	}
 
-	// Find student by ID
+	// Find student by ID. Returns null if student is not found.
 	public Student findStudentObjectByID(String studentId) {
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
 			// Compare IDs to ID passed in
 			if (studentId.equals(studentObject.getStudentId())) {
 				// If a match is found return the student object
-				System.out.println("Student with ID " + studentId + " was on list!");
 				return studentObject;
 			}
 		}
-		System.err.println("Student with ID " + studentId + " is not on the list!");
+		// If no match is found return null
 		return null;
 	}
 
 	// Returns true if student on list
 	public boolean isOnList(String studentId) {
-		if (Student.studentIdIsValid(studentId)) {
-			// Check if a valid student ID was entered
-			return studentList.contains(findStudentObjectByID(studentId));
+		return studentList.contains(findStudentObjectByID(studentId));
+	}
+
+	public void findStudentsByName(String firstName) {
+		// Search all student objects in the student list
+		for (Student studentObject : studentList) {
+			// Compare IDs to ID passed in
+			if (firstName.equals(studentObject.getFirstName())) {
+				// If a match is found print the student details to console
+				System.out.println(studentObject.toString());
+			}
 		}
-		return false;
+	}
+
+	public void finStudentsByAge(int age) {
+		// Search all student objects in the student list
+		for (Student studentObject : studentList) {
+			// Compare IDs to ID passed in
+			if (age == studentObject.getAge()) {
+				// If a match is found print the student details to console
+				System.out.println(studentObject.toString());
+			}
+		}
+	}
+
+	public void findStudentsByFirstNameAndAge(String firstName, int age) {
+		// Search all student objects in the student list
+		for (Student studentObject : studentList) {
+			// Compare IDs to ID passed in
+			if (studentObject.getFirstName().equals(firstName) && studentObject.getAge() == age) {
+				// If a match is found print the student details to console
+				System.out.println(studentObject.toString());
+			}
+		}
+	}
+
+	public Student findStudentsByAgeRange(int minAge, int maxAge) {
+		// Search all student objects in the student list
+		for (Student studentObject : studentList) {
+			// Compare IDs to ID passed in
+			if (studentObject.getAge() >= minAge  && studentObject.getAge() <= maxAge) {
+				// If a match is found print the student details to console
+				System.out.println(studentObject.toString());
+			}
+		}
+		// If no match is found return null
+		return null;
 	}
 
 	// Add student to list
@@ -73,25 +114,26 @@ public class StudentManager {
 
 	// Remove student from list given studendID
 	public boolean removeStudentFromList(String studentId) {
-		if (Student.studentIdIsValid(studentId)) {
-			return studentList.remove(findStudentObjectByID(studentId));
-		} else {
-			return false;
-		}
+		return studentList.remove(findStudentObjectByID(studentId));
 	}
 
 	// Update student name
-	public void updateStudentName(String studentId, String newName) {
+	public boolean updateStudentName(String studentId, String newName) {
 		if (Student.studentIdIsValid(studentId) && Student.firstNameIsValid(newName)) {
 			// Find student object by ID
 			Student studentToUpdate = findStudentObjectByID(studentId);
-			// Update student name
+			// If student is found update name
 			if (studentToUpdate != null) {
+				// Save old name
 				String oldName = studentToUpdate.getFirstName();
+				// Set new name
 				studentToUpdate.setFirstName(newName);
+				// Print message to console showing old and new name
 				System.out.println("Student with ID: " + studentId + " updated name from " + oldName + " to " + newName);
 			}
 		}
+		// If student ID is invalid or new name is invalid  or if student is not found return false
+		return false;
 	}
 
 	// Show total number of Students in List
