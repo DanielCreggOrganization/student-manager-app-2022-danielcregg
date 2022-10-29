@@ -55,6 +55,7 @@ public class StudentManager {
 	}
 
 	public void findStudentsByName(String firstName) {
+		System.out.println("Here are all students with first name " + firstName + ":");
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
 			// Compare IDs to ID passed in
@@ -66,6 +67,7 @@ public class StudentManager {
 	}
 
 	public void finStudentsByAge(int age) {
+		System.out.println("Here are all students of age " + age + ":");
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
 			// Compare IDs to ID passed in
@@ -77,6 +79,7 @@ public class StudentManager {
 	}
 
 	public void findStudentsByFirstNameAndAge(String firstName, int age) {
+		System.out.println("Here are all students with first name " + firstName + " and age " + age + ":");
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
 			// Compare IDs to ID passed in
@@ -88,16 +91,22 @@ public class StudentManager {
 	}
 
 	public Student findStudentsByAgeRange(int minAge, int maxAge) {
-		// Search all student objects in the student list
-		for (Student studentObject : studentList) {
-			// Compare IDs to ID passed in
-			if (studentObject.getAge() >= minAge  && studentObject.getAge() <= maxAge) {
-				// If a match is found print the student details to console
-				System.out.println(studentObject.toString());
+		if (minAge > maxAge) {
+			System.err.println("Invalid input: Minimum age can not be greater than maximum age!");
+			return null;
+		} else {
+			System.out.println("Here are all students between the ages of " + minAge + " and " + maxAge + ":");
+			// Search all student objects in the student list
+			for (Student studentObject : studentList) {
+				// Compare IDs to ID passed in
+				if (studentObject.getAge() >= minAge && studentObject.getAge() <= maxAge) {
+					// If a match is found print the student details to console
+					System.out.println(studentObject.toString());
+				}
 			}
+			// If no match is found return null
+			return null;
 		}
-		// If no match is found return null
-		return null;
 	}
 
 	// Add student to list

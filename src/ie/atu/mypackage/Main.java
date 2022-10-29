@@ -12,5 +12,10 @@ public class Main {
         studentManagerObject1.printStudentList();
 
         studentManagerObject1.writeStudentDataToCSVFile("./resources/students.csv");
+
+        studentManagerObject1.finStudentsByAge(20);
+        studentManagerObject1.findStudentsByName("Sarah");
+        studentManagerObject1.findStudentsByFirstNameAndAge("Sarah", 20);
+        studentManagerObject1.findStudentsByAgeRange(21, 50);
     }
 }
