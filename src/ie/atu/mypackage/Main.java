@@ -17,5 +17,7 @@ public class Main {
         studentManagerObject1.findStudentsByName("Sarah");
         studentManagerObject1.findStudentsByFirstNameAndAge("Sarah", 20);
         studentManagerObject1.findStudentsByAgeRange(21, 50);
+        studentManagerObject1.writeStudentManagerObjectToFile("./resources/students.ser");
+        studentManagerObject1.readStudentManagerObjectFromFile("./resources/students.ser");
     }
 }
