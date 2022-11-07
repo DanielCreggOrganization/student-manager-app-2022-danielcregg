@@ -3,8 +3,12 @@ package ie.atu.mypackage;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-	
-	// serialVersionUID is used to ensure that the same class is being used when deserializing an object
+
+	/*
+	 *  serialVersionUID is used to ensure that the same class is being used when
+	 * deserializing an object
+	 *
+	 */
 	public static final long serialVersionUID = 1L;
 
 	// Instance Variables
