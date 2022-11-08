@@ -5,6 +5,10 @@ public class Main {
         // Create student list
         StudentManager studentManagerObject1 = new StudentManager();
 
+
+        boolean test = studentManagerObject1.getStudentList().contains(null);
+        System.out.println(test);
+
         studentManagerObject1.readStudentDataFromCSVFile("./resources/students.csv");
         studentManagerObject1.addStudentToList("G00666666", "Sarah", 29);
         studentManagerObject1.printTotalNumberOfStudents();
@@ -13,7 +17,7 @@ public class Main {
 
         studentManagerObject1.writeStudentDataToCSVFile("./resources/students.csv");
 
-        studentManagerObject1.finStudentsByAge(20);
+        studentManagerObject1.findStudentsByAge(20);
         studentManagerObject1.findStudentsByName("Sarah");
         studentManagerObject1.findStudentsByFirstNameAndAge("Sarah", 20);
         studentManagerObject1.findStudentsByAgeRange(21, 50);

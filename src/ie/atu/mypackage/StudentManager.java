@@ -9,15 +9,22 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManager implements Serializable {
-	
-	// serialVersionUID is used to ensure that the same class is being used when deserializing an object
+
+	/*
+	 * serialVersionUID is used to ensure that the same class is being used when
+	 * deserializing an object
+	 */
 	public static final long serialVersionUID = 1L;
 
 	// Instance Variables
@@ -43,17 +50,19 @@ public class StudentManager implements Serializable {
 		this.studentList = studentList;
 	}
 
-	// Find student by ID. Returns null if student is not found.
+	// Find student object by ID. Returns null if student is not found.
 	public Student findStudentObjectByID(String studentId) {
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
 			// Compare IDs to ID passed in
 			if (studentId.equals(studentObject.getStudentId())) {
 				// If a match is found return the student object
+				System.out.println("Student object with ID = " + studentId + " was found on list!");
 				return studentObject;
 			}
 		}
 		// If no match is found return null
+		System.out.println("Student object with ID = " + studentId + " was NOT found on list!");
 		return null;
 	}
 
@@ -74,7 +83,7 @@ public class StudentManager implements Serializable {
 		}
 	}
 
-	public void finStudentsByAge(int age) {
+	public void findStudentsByAge(int age) {
 		System.out.println("Here are all students of age " + age + ":");
 		// Search all student objects in the student list
 		for (Student studentObject : studentList) {
@@ -126,6 +135,7 @@ public class StudentManager implements Serializable {
 			return this.studentList.add(newStudent);
 		}
 		// If student details are invalid or if student is already on list return false
+		System.out.println("Student with ID" + studentId + " could not be added to list!");
 		return false;
 	}
 
@@ -136,20 +146,27 @@ public class StudentManager implements Serializable {
 
 	// Update student name
 	public boolean updateStudentName(String studentId, String newName) {
+		// If the inputted Student ID and new name are valid...
 		if (Student.studentIdIsValid(studentId) && Student.firstNameIsValid(newName)) {
-			// Find student object by ID
+			// Search for student object with on the list with the inputted ID
 			Student studentToUpdate = findStudentObjectByID(studentId);
-			// If student is found update name
+			// If the student object is found i.e. NOT equal to null...
 			if (studentToUpdate != null) {
-				// Save old name
-				String oldName = studentToUpdate.getFirstName();
-				// Set new name
-				studentToUpdate.setFirstName(newName);
-				// Print message to console showing old and new name
-				System.out.println("Student with ID: " + studentId + " updated name from " + oldName + " to " + newName);
+				// Save the current students name
+				String currentName = studentToUpdate.getFirstName();
+				// Check if the currentName is equal to the newName
+				if (currentName.equals(newName)) {
+					System.out.println("Student name is already " + newName + "! No update made to name.");
+				} else {
+					// else if the currentName is NOT equal to the newName, update the name
+					studentToUpdate.setFirstName(newName);
+					System.out.println("Student name changed from " + currentName + " to " + newName + "!");
+					return true;
+				}
 			}
 		}
-		// If student ID is invalid or new name is invalid  or if student is not found return false
+		// If student ID is invalid or new name is invalid
+		System.out.println("Student name NOT updated!");
 		return false;
 	}
 
@@ -161,11 +178,11 @@ public class StudentManager implements Serializable {
 	// Print student list to console
 	public void printStudentList() {
 		System.out.println("ID,NAME,AGE");
-		System.out.println("===========================");
+		System.out.println("========================");
 		for (Student studentObject : studentList) {
 			System.out.println(studentObject.toString());
 		}
-		System.out.println("===========================");
+		System.out.println("========================");
 	}
 
 	// Read student details from file
@@ -252,77 +269,95 @@ public class StudentManager implements Serializable {
 				bufferedstudentFileWriterStream.close();
 				// Close file writer
 				studentFileWriterStream.close();
-			} catch (IOException IOExc) {
-				System.err.println("ERROR: Could not close the buffer or file writer!");
-				IOExc.printStackTrace();
-			} // End catch
+			} catch (NullPointerException npExc) {
+				System.out.println("ERROR: Could not close the ObjectOutputStream or FileOutputStream!");
+				npExc.printStackTrace();
+			} catch (IOException ioExc) {
+				ioExc.printStackTrace();
+			} // End catchEnd catch
 		} // End finally
 	} // End Save method
 
-	// Method to de-serialize the Student Manager Object
-	public StudentManager readStudentManagerObjectFromFile(String studentsObjectsFilePath) {
-		
-		File studentManagerByteFile = new File(studentsObjectsFilePath);
-		FileInputStream fis = null;
-		ObjectInputStream ois = null;
-		StudentManager sm = null;
-		
+	// Method to serialize the Student Manager Object
+	public void writeStudentManagerObjectToFile(String pathToFile) {
+
+		File studentManagerObjectByteFile = null;
+		FileOutputStream fosToStudentManagerObjectByteFile = null;
+		ObjectOutputStream oosToStudentManagerObjectByteFile = null;
+
 		try {
-			fis = new FileInputStream(studentManagerByteFile);
-			ois = new ObjectInputStream(fis);
-			sm = (StudentManager) ois.readObject();
-		} catch (FileNotFoundException e) {
-			System.out.println("hi mom");
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			studentManagerObjectByteFile = new File(pathToFile);
+			fosToStudentManagerObjectByteFile = new FileOutputStream(studentManagerObjectByteFile);
+			oosToStudentManagerObjectByteFile = new ObjectOutputStream(fosToStudentManagerObjectByteFile);
+			oosToStudentManagerObjectByteFile.writeObject(this);
+		} catch (NullPointerException npExc) {
+			npExc.printStackTrace();
+		} catch (FileNotFoundException fnfExc) {
+			fnfExc.printStackTrace();
+		} catch (SecurityException secExc) {
+			secExc.printStackTrace();
+		} catch (InvalidClassException icExc) {
+			icExc.printStackTrace();
+		} catch (NotSerializableException nsExc) {
+			nsExc.printStackTrace();
+		} catch (IOException IOExc) {
+			IOExc.printStackTrace();
 		} finally {
 			try {
-				if (ois != null) {
-					// Close ObjectOutputStream
-					ois.close();
-				}
-				if (fis != null) {
-					// Close FileOutputStream
-					fis.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+				// Close ObjectOutputStream
+				oosToStudentManagerObjectByteFile.close();
+				// Close FileOutputStream
+				fosToStudentManagerObjectByteFile.close();
+			} catch (NullPointerException npExc) {
+				System.out.println("ERROR: Could not close the ObjectOutputStream or FileOutputStream!");
+				npExc.printStackTrace();
+			} catch (IOException ioExc) {
+				ioExc.printStackTrace();
 			} // End catch
 		} // End finally
-		return sm; // Returns null if no object is read in.
 	}
 
-	// Method to serialize the Student Manager Object
-	public void writeStudentManagerObjectToFile(String studentsObjectsFilePath) {
-		
-		File studentManagerByteFile = new File(studentsObjectsFilePath);
-		FileOutputStream fos = null;
-		ObjectOutputStream oos = null;
-		
+	// Method to de-serialize the Student Manager Object
+	public StudentManager readStudentManagerObjectFromFile(String pathToFile) {
+		File studentManagerObjectByteFile = null;
+		FileInputStream fisFromStudentManagerObjectByteFile = null;
+		ObjectInputStream oisFromStudentManagerObjectByteFile = null;
+		StudentManager studentManagerObjectReadIn = null; // Create empty StudentManager object to store read in object
+
 		try {
-			fos = new FileOutputStream(studentManagerByteFile);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(this);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			studentManagerObjectByteFile = new File(pathToFile);
+			fisFromStudentManagerObjectByteFile = new FileInputStream(studentManagerObjectByteFile);
+			oisFromStudentManagerObjectByteFile = new ObjectInputStream(fisFromStudentManagerObjectByteFile);
+			studentManagerObjectReadIn = (StudentManager) oisFromStudentManagerObjectByteFile.readObject();
+		} catch (NullPointerException npExc) {
+			npExc.printStackTrace();
+		} catch (FileNotFoundException fnfExc) {
+			fnfExc.printStackTrace();
+		} catch (SecurityException secExc) {
+			secExc.printStackTrace();
+		} catch (StreamCorruptedException scExc) {
+			scExc.printStackTrace();
+		} catch (InvalidClassException icExc) {
+			icExc.printStackTrace();
+		} catch (OptionalDataException odExc) {
+			odExc.printStackTrace();
+		} catch (IOException IOExc) {
+			IOExc.printStackTrace();
+		} catch (ClassNotFoundException cnfExc) {
+			cnfExc.printStackTrace();
 		} finally {
 			try {
-				if (oos != null) {
-					// Close ObjectOutputStream
-					oos.close();
-				}
-				if (fos != null) {
-					// Close FileOutputStream
-					fos.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+				// Close ObjectOutputStream
+				oisFromStudentManagerObjectByteFile.close();
+				// Close FileOutputStream
+				fisFromStudentManagerObjectByteFile.close();
+			} catch (NullPointerException npExc) {
+				System.out.println("ERROR: Could not close the ObjectOutputStream or FileOutputStream!");
+				npExc.printStackTrace();
+			} catch (IOException ioExc) {
+				ioExc.printStackTrace();
 			} // End catch
 		} // End finally
+		return studentManagerObjectReadIn; // Returns null if no object is read in.
 	}
 }// End class
